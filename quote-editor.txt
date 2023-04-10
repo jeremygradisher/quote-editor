@@ -1,0 +1,17 @@
+quote-editor.txt
+
+Turbo Rails Tutorial
+https://www.hotrails.dev/turbo-rails
+
+
+1. Let's create our brand new Rails application. We will use Sass as a CSS pre-processor to create our design system, esbuild to bundle our single line of JavaScript, and a Postgresql database to be able to deploy our app on Heroku at the end of the tutorial.
+
+$ rails new quote-editor --css=sass --javascript=esbuild --database=postgresql
+
+
+2. As this tutorial was written at the time of Rails 7.0.0 let's make sure we use the version of turbo-rails that was used at the time to avoid unexpected issues. Let's update our Gemfile by locking the turbo-rails version:
+
+# Gemfile
+gem "turbo-rails", "~> 1.0"
+
+3. 
