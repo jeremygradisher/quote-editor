@@ -507,9 +507,13 @@ Organizing CSS files in Ruby on Rails
 In this chapter, we will write some CSS using the BEM methodology to create a nice design system for our application.
 
 Added: 
-The mixins folder - app/assets/stylesheets/mixins/_media.scss
-The configuration folder - app/assets/stylesheets/config/_variables.scss
-Global styles - app/assets/stylesheets/config/_reset.scss
+The mixins folder - app/assets/stylesheets/mixins/_media.scss<br>
+The configuration folder - app/assets/stylesheets/config/_variables.scss<br>
+Global styles - app/assets/stylesheets/config/_reset.scss<br>
+The components folder - app/assets/stylesheets/components/ - _btn and _quote<br>
+.form component - app/assets/stylesheets/components/_form.scss<br>
+.visually-hidden component - app/assets/stylesheets/components/_visually_hidden.scss<br>
+
 
 ## Chapter 3
 Turbo Drive
