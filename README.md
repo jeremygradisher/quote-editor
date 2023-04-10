@@ -4,10 +4,9 @@ https://www.hotrails.dev/turbo-rails
 Learn how to leverage the power of the turbo-rails library now included by default in Rails 7 to write reactive single-page applications without having to write a single line of custom JavaScript.
 
 ## Chapter 0
+https://www.hotrails.dev/turbo-rails/turbo-rails-tutorial-introduction
 Turbo Rails tutorial introduction
 In this chapter, we will explain what we are going to learn, have a look at the finished product and kickstart our brand new Rails 7 application!
-
-https://www.hotrails.dev/turbo-rails/turbo-rails-tutorial-introduction
 
 1. Let's create our brand new Rails application. We will use Sass as a CSS pre-processor to create our design system, esbuild to bundle our single line of JavaScript, and a Postgresql database to be able to deploy our app on Heroku at the end of the tutorial.
 
@@ -41,6 +40,7 @@ $ bin/dev
 6. We can now go to http://localhost:3000, and we should see the Rails boot screen.
 
 ## Chapter 1
+https://www.hotrails.dev/turbo-rails/crud-controller-ruby-on-rails
 A simple CRUD controller with Rails
 In this first chapter, we will start our application by creating our quote model and its associated controller following the Ruby on Rails conventions.
 
