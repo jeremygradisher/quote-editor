@@ -428,6 +428,45 @@ end
 bin/dev
 ```
 
+29. Turbo Drive: Form responses must redirect to another location - The app works as expected unless we submit an empty form. Even if we have a presence validation on the name of the quote, the error message is not displayed as we could expect when the form submission fails. If we open the console in our dev tools, we will see the cryptic error message "Form responses must redirect to another location".
+
+This is a "breaking change" since Rails 7 because of Turbo Drive. We will discuss this topic in-depth in Chapter 3 dedicated to Turbo Drive. If you ever encounter this issue, the way to fix it is to add status: :unprocessable_entity to the QuotesController#create and QuotesController#update actions when the form is submitted with errors:
+```
+# app/controllers/quotes_controller.rb
+
+class QuotesController < ApplicationController
+  # ...
+
+  def create
+    @quote = Quote.new(quote_params)
+
+    if @quote.save
+      redirect_to quotes_path, notice: "Quote was successfully created."
+    else
+      # Add `status: :unprocessable_entity` here
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  # ...
+
+  def update
+    if @quote.update(quote_params)
+      redirect_to quotes_path, notice: "Quote was successfully updated."
+    else
+      # Add `status: :unprocessable_entity` here
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  # ...
+end
+```
+
+
+
+
+
 ## Chapter 2
 Organizing CSS files in Ruby on Rails
 In this chapter, we will write some CSS using the BEM methodology to create a nice design system for our application.
