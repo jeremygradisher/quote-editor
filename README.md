@@ -463,8 +463,43 @@ class QuotesController < ApplicationController
 end
 ```
 
+30. Seeding our application with development data
+When we launched our server for the first time, we didn't have any quotes on our page. Without development data, every time we want to edit or delete a quote, we must create it first. 
 
+While this is fine for a small application like this one, it becomes annoying for real-world applications. Imagine if we needed to create all the data manually every time we want to add a new feature. This is why most Rails applications have a script in db/seeds.rb to populate the development database with fake data to help set up realistic data for development.
 
+In our tutorial, however, we already have fixtures for test data:
+
+```
+# test/fixtures/quotes.yml
+
+first:
+  name: First quote
+
+second:
+  name: Second quote
+
+third:
+  name: Third quote
+```
+
+31. We will reuse the data from the fixtures to create our development data. It will have two advantages:
+
+We won't have to do the work twice in both db/seeds.rb and the fixtures files
+
+We will keep test data and development data in sync
+
+If you like using fixtures for your tests, you may know that instead of running bin/rails db:seed you can run bin/rails db:fixtures:load to create development data from your fixtures files. Let's tell Rails that the two commands are equivalent in the db/seeds.rb file:
+```
+# db/seeds.rb
+
+puts "\n== Seeding the database with fixtures =="
+system("bin/rails db:fixtures:load")
+```
+Running the bin/rails db:seed command is now equivalent to removing all the quotes and loading fixtures as development data. Every time we need to reset a clean development data, we can run the bin/rails db:seed command:
+```
+bin/rails db:seed
+```
 
 
 ## Chapter 2
