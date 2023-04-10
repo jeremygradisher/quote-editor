@@ -513,12 +513,17 @@ Global styles - app/assets/stylesheets/config/_reset.scss<br>
 The components folder - app/assets/stylesheets/components/ - _btn and _quote<br>
 .form component - app/assets/stylesheets/components/_form.scss<br>
 .visually-hidden component - app/assets/stylesheets/components/_visually_hidden.scss<br>
-Error messages: app/assets/stylesheets/components/_error_message.scss
+Error messages: app/assets/stylesheets/components/_error_message.scss<br>
 Layouts folder container - app/assets/stylesheets/layouts/_container.scss
 
+Finally, we have to import all of those CSS files in our application.sass.scss
+
+app/assets/stylesheets/application.sass.scss
+
+Chapter 2 complete!
 
 ## Chapter 3
-Turbo Drive
+Turbo Drive - https://www.hotrails.dev/turbo-rails/turbo-drive<br>
 In this chapter, we will explain what Turbo Drive is and how it speeds up our Ruby on Rails applications by converting all link clicks and form submissions into AJAX requests.
 
 ## Chapter 4
