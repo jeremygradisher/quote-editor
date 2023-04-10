@@ -185,6 +185,76 @@ class CreateQuotes < ActiveRecord::Migration[7.0]
 bin/rails db:migrate
 ```
 
+16. Now that our model is ready, it's time to develop our CRUD controller. Let's create the file with the help of the rails generator:
+```
+bin/rails generate controller Quotes
+```
+
+Let's add the seven routes of the CRUD for our Quote resource:
+```
+# config/routes.rb
+
+Rails.application.routes.draw do
+  resources :quotes
+end
+```
+
+17. Now that the routes are all set, we can write the corresponding controller actions:
+```
+# app/controllers/quotes_controller.rb
+
+class QuotesController < ApplicationController
+  before_action :set_quote, only: [:show, :edit, :update, :destroy]
+
+  def index
+    @quotes = Quote.all
+  end
+
+  def show
+  end
+
+  def new
+    @quote = Quote.new
+  end
+
+  def create
+    @quote = Quote.new(quote_params)
+
+    if @quote.save
+      redirect_to quotes_path, notice: "Quote was successfully created."
+    else
+      render :new
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @quote.update(quote_params)
+      redirect_to quotes_path, notice: "Quote was successfully updated."
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @quote.destroy
+    redirect_to quotes_path, notice: "Quote was successfully destroyed."
+  end
+
+  private
+
+  def set_quote
+    @quote = Quote.find(params[:id])
+  end
+
+  def quote_params
+    params.require(:quote).permit(:name)
+  end
+end
+```
+
 ## Chapter 2
 Organizing CSS files in Ruby on Rails
 In this chapter, we will write some CSS using the BEM methodology to create a nice design system for our application.
