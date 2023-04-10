@@ -5,7 +5,8 @@ Learn how to leverage the power of the turbo-rails library now included by defau
 
 ## Chapter 0
 https://www.hotrails.dev/turbo-rails/turbo-rails-tutorial-introduction
-Turbo Rails tutorial introduction
+
+Turbo Rails tutorial introduction - 
 In this chapter, we will explain what we are going to learn, have a look at the finished product and kickstart our brand new Rails 7 application!
 
 1. Let's create our brand new Rails application. We will use Sass as a CSS pre-processor to create our design system, esbuild to bundle our single line of JavaScript, and a Postgresql database to be able to deploy our app on Heroku at the end of the tutorial.
@@ -43,6 +44,114 @@ $ bin/dev
 https://www.hotrails.dev/turbo-rails/crud-controller-ruby-on-rails
 A simple CRUD controller with Rails
 In this first chapter, we will start our application by creating our quote model and its associated controller following the Ruby on Rails conventions.
+
+7. Let's first run the generator to create the test file for us:
+```
+bin/rails g system_test quotes
+```
+
+8. With the help of the sketches above, let's describe what happens in plain English and write some tests at the same time:
+```
+# test/system/quotes_test.rb
+
+require "application_system_test_case"
+
+class QuotesTest < ApplicationSystemTestCase
+  test "Creating a new quote" do
+    # When we visit the Quotes#index page
+    # we expect to see a title with the text "Quotes"
+    visit quotes_path
+    assert_selector "h1", text: "Quotes"
+
+    # When we click on the link with the text "New quote"
+    # we expect to land on a page with the title "New quote"
+    click_on "New quote"
+    assert_selector "h1", text: "New quote"
+
+    # When we fill in the name input with "Capybara quote"
+    # and we click on "Create Quote"
+    fill_in "Name", with: "Capybara quote"
+    click_on "Create quote"
+
+    # We expect to be back on the page with the title "Quotes"
+    # and to see our "Capybara quote" added to the list
+    assert_selector "h1", text: "Quotes"
+    assert_text "Capybara quote"
+  end
+end
+```
+
+9. Let's first create the fixture file for our quotes:
+```
+touch test/fixtures/quotes.yml
+```
+
+10. Let's create a few quotes in this file:
+```
+# test/fixtures/quotes.yml
+
+first:
+  name: First quote
+
+second:
+  name: Second quote
+
+third:
+  name: Third quote
+```
+
+11. We are now ready to add two more tests to our test suite:
+```
+# test/system/quotes_test.rb
+
+require "application_system_test_case"
+
+class QuotesTest < ApplicationSystemTestCase
+  setup do
+    @quote = quotes(:first) # Reference to the first fixture quote
+  end
+
+  # ...
+  # The test we just wrote
+  # ...
+
+  test "Showing a quote" do
+    visit quotes_path
+    click_link @quote.name
+
+    assert_selector "h1", text: @quote.name
+  end
+
+  test "Updating a quote" do
+    visit quotes_path
+    assert_selector "h1", text: "Quotes"
+
+    click_on "Edit", match: :first
+    assert_selector "h1", text: "Edit quote"
+
+    fill_in "Name", with: "Updated quote"
+    click_on "Update quote"
+
+    assert_selector "h1", text: "Quotes"
+    assert_text "Updated quote"
+  end
+
+  test "Destroying a quote" do
+    visit quotes_path
+    assert_text @quote.name
+
+    click_on "Delete", match: :first
+    assert_no_text @quote.name
+  end
+end
+```
+
+Now that our tests are ready, we can run them with bin/rails test:system. As we can notice, all of them are failing because we are missing routes, a Quote model, and a QuotesController. Now that our requirements are precise, it's time to start working on the meat of our application.
+
+Run the tests:
+```
+bin/rails test:system
+```
 
 ## Chapter 2
 Organizing CSS files in Ruby on Rails
