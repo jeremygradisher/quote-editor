@@ -503,6 +503,7 @@ bin/rails db:seed
 
 
 ## Chapter 2
+https://www.hotrails.dev/turbo-rails/css-ruby-on-rails
 Organizing CSS files in Ruby on Rails
 In this chapter, we will write some CSS using the BEM methodology to create a nice design system for our application.
 
