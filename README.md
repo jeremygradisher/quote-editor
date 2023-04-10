@@ -1,7 +1,6 @@
-# Turbo Rails Tutorial
-https://www.hotrails.dev/turbo-rails
+# Turbo Rails Tutorial - https://www.hotrails.dev/turbo-rails
 
-### Learn how to leverage the power of the turbo-rails library now included by default in Rails 7 to write reactive single-page applications without having to write a single line of custom JavaScript.
+Learn how to leverage the power of the turbo-rails library now included by default in Rails 7 to write reactive single-page applications without having to write a single line of custom JavaScript.
 
 ## Chapter 0
 Turbo Rails tutorial introduction
