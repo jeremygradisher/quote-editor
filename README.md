@@ -152,6 +152,38 @@ Run the tests:
 ```
 bin/rails test:system
 ```
+12. First, let's create the Quote model with a name attribute and its associated migration file by running the following command in the console. As we already generated the fixture file, type "n" for "no" when asked to override it:
+```
+rails generate model Quote name:string
+```
+
+13. All our quotes must have a name to be valid, so we'll add this as a validation in the model:
+```
+# app/models/quote.rb
+
+class Quote < ApplicationRecord
+  validates :name, presence: true
+end
+```
+
+14. In the CreateQuotes migration, let's add null: false as a constraint to our name attribute to enforce the validation and ensure we will never store quotes with an empty name in the database even if we made a mistake in the console.
+```
+# db/migrate/XXXXXXXXXXXXXX_create_quotes.rb
+
+class CreateQuotes < ActiveRecord::Migration[7.0]
+  def change
+    create_table :quotes do |t|
+      t.string :name, null: false
+
+      t.timestamps
+    end
+  end
+```
+
+15. We are now ready to run the migration:
+```
+bin/rails db:migrate
+```
 
 ## Chapter 2
 Organizing CSS files in Ruby on Rails
