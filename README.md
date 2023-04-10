@@ -255,6 +255,179 @@ class QuotesController < ApplicationController
 end
 ```
 
+Great! The last thing we need to do to make our tests pass is to create the views.
+
+18. Adding our quote views
+The markup for the Quotes#index page
+The first file we have to create is the Quotes#index page app/views/quotes/index.html.erb.
+```
+<%# app/views/quotes/index.html.erb %>
+
+<main class="container">
+  <div class="header">
+    <h1>Quotes</h1>
+    <%= link_to "New quote",
+                new_quote_path,
+                class: "btn btn--primary" %>
+  </div>
+
+  <%= render @quotes %>
+</main>
+```
+
+19. We follow the Ruby on Rails conventions for the Quotes#index page by rendering each quote in the @quotes collection from the partial app/views/quotes/_quote.html.erb. This is why we need this second file:
+```
+<%# app/views/quotes/_quote.html.erb %>
+
+<div class="quote">
+  <%= link_to quote.name, quote_path(quote) %>
+  <div class="quote__actions">
+    <%= button_to "Delete",
+                  quote_path(quote),
+                  method: :delete,
+                  class: "btn btn--light" %>
+    <%= link_to "Edit",
+                edit_quote_path(quote),
+                class: "btn btn--light" %>
+  </div>
+</div>
+```
+
+20. The markup for the Quotes#new and Quotes#edit pages
+The first files we have to create are app/views/quotes/new.html.erb and app/views/quotes/edit.html.erb. Note that the only difference between the two pages is the content of the <h1> tag.
+
+```
+<%# app/views/quotes/new.html.erb %>
+
+<main class="container">
+  <%= link_to sanitize("&larr; Back to quotes"), quotes_path %>
+
+  <div class="header">
+    <h1>New quote</h1>
+  </div>
+
+  <%= render "form", quote: @quote %>
+</main>
+```
+
+Edit:
+```
+<%# app/views/quotes/edit.html.erb %>
+
+<main class="container">
+  <%= link_to sanitize("&larr; Back to quote"), quote_path(@quote) %>
+
+  <div class="header">
+    <h1>Edit quote</h1>
+  </div>
+
+  <%= render "form", quote: @quote %>
+</main>
+```
+21. Once again, we will follow Ruby on Rails conventions by rendering the form from the app/views/quotes/_form.html.erb file. That way, we can use the same partial for both the Quotes#new and the Quotes#edit pages.
+```
+<%# app/views/quotes/_form.html.erb %>
+
+<%= simple_form_for quote, html: { class: "quote form" } do |f| %>
+  <% if quote.errors.any? %>
+    <div class="error-message">
+      <%= quote.errors.full_messages.to_sentence.capitalize %>
+    </div>
+  <% end %>
+
+  <%= f.input :name, input_html: { autofocus: true } %>
+  <%= f.submit class: "btn btn--secondary" %>
+<% end %>
+```
+22. The autofocus option is here to focus the corresponding input field when the form appears on the screen, so we don't have to use the mouse and can type directly in it. Notice how the markup for the form is simple? It's because we are going to use the simple_form gem. To install it, let's add the gem to our Gemfile.
+```
+# Gemfile
+gem "simple_form", "~> 5.1.0"
+```
+23. With our gem added, it's time to install it:
+```
+bundle install
+bin/rails generate simple_form:install
+```
+24. The role of the simple_form gem is to make forms easy to work with. It also helps keep the form designs consistent across the application by making sure we always use the same CSS classes. Let's replace the content of the configuration file and break it down together:
+```
+# config/initializers/simple_form.rb
+
+SimpleForm.setup do |config|
+  # Wrappers configration
+  config.wrappers :default, class: "form__group" do |b|
+    b.use :html5
+    b.use :placeholder
+    b.use :label, class: "visually-hidden"
+    b.use :input, class: "form__input", error_class: "form__input--invalid"
+  end
+
+  # Default configuration
+  config.generate_additional_classes_for = []
+  config.default_wrapper                 = :default
+  config.button_class                    = "btn"
+  config.label_text                      = lambda { |label, _, _| label }
+  config.error_notification_tag          = :div
+  config.error_notification_class        = "error_notification"
+  config.browser_validations             = false
+  config.boolean_style                   = :nested
+  config.boolean_label_class             = "form__checkbox-label"
+end
+```
+
+25. Simple form also helps us define text for labels and placeholders in another configuration file:
+```
+# config/locales/simple_form.en.yml
+
+en:
+  simple_form:
+    placeholders:
+      quote:
+        name: Name of your quote
+    labels:
+      quote:
+        name: Name
+
+  helpers:
+    submit:
+      quote:
+        create: Create quote
+        update: Update quote
+```
+25. The last view we need is the Quotes#show page. For now, it will be almost empty, containing only a title with the name of the quote and a link to go back to the Quotes#index page.
+```
+<%# app/views/quotes/show.html.erb %>
+
+<main class="container">
+  <%= link_to sanitize("&larr; Back to quotes"), quotes_path %>
+  <div class="header">
+    <h1>
+      <%= @quote.name %>
+    </h1>
+  </div>
+</main>
+```
+
+26. It seems like we just accomplished our mission. Let's make sure our test passes by running bin/rails test:system. They pass!
+```
+bin/rails test:system
+```
+
+27. Note: When launching the system tests, we will see the Google Chrome browser open and perform the tasks we created for our quote system test. We can use the headless_chrome driver instead to prevent the Google Chrome window from opening:
+```
+# test/application_system_test_case.rb
+
+class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
+  # Change :chrome with :headless_chrome
+  driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
+end
+```
+
+28. We can also launch our webserver with the bin/dev command in the terminal and make sure everything works just fine. Let's not forget to restart our server as we just installed a new gem and modified a configuration file.
+```
+bin/dev
+```
+
 ## Chapter 2
 Organizing CSS files in Ruby on Rails
 In this chapter, we will write some CSS using the BEM methodology to create a nice design system for our application.
