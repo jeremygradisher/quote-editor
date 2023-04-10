@@ -514,6 +514,7 @@ The components folder - app/assets/stylesheets/components/ - _btn and _quote<br>
 .form component - app/assets/stylesheets/components/_form.scss<br>
 .visually-hidden component - app/assets/stylesheets/components/_visually_hidden.scss<br>
 Error messages: app/assets/stylesheets/components/_error_message.scss
+Layouts folder container - app/assets/stylesheets/layouts/_container.scss
 
 
 ## Chapter 3
