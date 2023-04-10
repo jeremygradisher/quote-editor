@@ -501,11 +501,21 @@ Running the bin/rails db:seed command is now equivalent to removing all the quot
 bin/rails db:seed
 ```
 
-
 ## Chapter 2
 https://www.hotrails.dev/turbo-rails/css-ruby-on-rails<br>
 Organizing CSS files in Ruby on Rails
 In this chapter, we will write some CSS using the BEM methodology to create a nice design system for our application.
+
+32. The mixins folder - The mixins folder is the smallest of all. It will only contain one file called _media.scss in which we will define the breakpoints of our media queries. In our application, we will have only one breakpoint that we will call tabletAndUp:
+```
+// app/assets/stylesheets/mixins/_media.scss
+
+@mixin media($query) {
+  @if $query == tabletAndUp {
+    @media (min-width: 50rem) { @content; }
+  }
+}
+```
 
 ## Chapter 3
 Turbo Drive
