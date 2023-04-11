@@ -592,10 +592,29 @@ Let's now make a silly temporary change to our CSS manifest to simulate a change
 
 Next time we click on a link, we should see a complete page reload. Let's test it and see that it works! Turbo Drive is a fantastic piece of software!
 
+## Changing the style of the Turbo Drive progress bar
+As Turbo Drive overrides the browser's default behavior for link clicks and form submissions, the browser's default progress bar/loaders won't work as expected anymore.
 
+Turbo has our back and has a built-in replacement for the browser's default progress bar, and we can style it to meet our application's design system! Let's style the Turbo Drive progress bar before moving to the next chapter:
+
+33. A good way to see we succeeded in adding styles to the Turbo progress bar is to temporarily add sleep 3 to our controller actions for the progress bar to appear for at least 3 seconds:
+```
+# app/controllers/application_controller.rb
+
+class ApplicationController < ActionController::Base
+  # Add this line to see the progress bar long enough
+  # and remove it when it has the expected styles
+  before_action -> { sleep 3 }
+end
+```
+
+That's it, our progress bar is styled and matches our design system! We can now remove the sleep 3 piece of code.
+
+Chapter 3 complete!
 
 ## Chapter 4
-Turbo Frames and Turbo Stream templates
+Turbo Frames and Turbo Stream templates - 
+https://www.hotrails.dev/turbo-rails/turbo-frames-and-turbo-streams<br>
 In this chapter, we will learn how to slice our page into independent parts thanks to Turbo Frames and the Turbo Stream format. After reading this chapter, all the CRUD actions on quotes will happen on the quotes index page.
 
 ## Chapter 5
