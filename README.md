@@ -832,7 +832,111 @@ As we can notice, Turbo Frames are a significant addition to our toolbox as Ruby
 </main>
 ```
 
+## Editing quotes with Turbo Frames
 
+41. With those sketches in mind and the rules of the previous section, let's implement this behavior. On the Quotes#index page, let's wrap each quote in a Turbo Frame with an id of "quote_#{quote_id}". As each quote card on the Quotes#index page is rendered from the _quote.html.erb partial, we simply need to wrap each quote within a Turbo Frame with this id:
+```
+<%# app/views/quotes/_quote.html.erb %>
+
+<%= turbo_frame_tag "quote_#{quote.id}" do %>
+  <div class="quote">
+    <%= link_to quote.name, quote_path(quote) %>
+    <div class="quote__actions">
+      <%= button_to "Delete",
+                    quote_path(quote),
+                    method: :delete,
+                    class: "btn btn--light" %>
+      <%= link_to "Edit",
+                  edit_quote_path(quote),
+                  class: "btn btn--light" %>
+    </div>
+  </div>
+<% end %>
+```
+
+42. We need a Turbo Frame of the same id around the form of the Quotes#edit page:
+```
+<%# app/views/quotes/edit.html.erb %>
+
+<main class="container">
+  <%= link_to sanitize("&larr; Back to quote"), quote_path(@quote) %>
+
+  <div class="header">
+    <h1>Edit quote</h1>
+  </div>
+
+  <%= turbo_frame_tag "quote_#{@quote.id}" do %>
+    <%= render "form", quote: @quote %>
+  <% end %>
+</main>
+```
+
+Now with only those four lines of code added, let's try our code in the browser. Let's click on the "Edit" button for a quote. The form successfully replaces the quote card.
+
+### Turbo Frames and the dom_id helper
+
+There is one more thing to know about the turbo_frame_tag helper. You can pass it a string or any object that can be converted to a dom_id. The dom_id helper helps us convert an object into a unique id like this:
+```
+# If the quote is persisted and its id is 1:
+dom_id(@quote) # => "quote_1"
+
+# If the quote is a new record:
+dom_id(Quote.new) # => "new_quote"
+
+# Note that the dom_id can also take an optional prefix argument
+# We will use this later in the tutorial
+dom_id(Quote.new, "prefix") # "prefix_new_quote"
+```
+
+The turbo_frame_tag helper automatically passes the given object to dom_id. Therefore, we can refactor our two turbo_frame_tag calls in our Quotes#index and Quotes#edit views by passing an object instead of a string. The following blocks of code are equivalent:
+```
+<%= turbo_frame_tag "quote_#{@quote.id}" do %>
+  ...
+<% end %>
+
+<%= turbo_frame_tag dom_id(@quote) do %>
+  ...
+<% end %>
+
+<%= turbo_frame_tag @quote %>
+  ...
+<% end %>
+```
+
+43. Let's refactor the code we just wrote to use this syntactic sugar:
+```
+<%# app/views/quotes/_quote.html.erb %>
+
+<%= turbo_frame_tag quote do %>
+  <div class="quote">
+    <%= link_to quote.name, quote_path(quote) %>
+    <div class="quote__actions">
+      <%= button_to "Delete",
+                    quote_path(quote),
+                    method: :delete,
+                    class: "btn btn--light" %>
+      <%= link_to "Edit",
+                  edit_quote_path(quote),
+                  class: "btn btn--light" %>
+    </div>
+  </div>
+<% end %>
+```
+```
+<%# app/views/quotes/edit.html.erb %>
+
+<main class="container">
+  <%= link_to sanitize("&larr; Back to quote"), quote_path(@quote) %>
+
+  <div class="header">
+    <h1>Edit quote</h1>
+  </div>
+
+  <%= turbo_frame_tag @quote do %>
+    <%= render "form", quote: @quote %>
+  <% end %>
+</main>
+```
 
 ## Chapter 5
 Real-time updates with Turbo Streams
