@@ -702,7 +702,28 @@ Turbo Frames are independent pieces of a web page that can be appended, prepende
 </main>
 ```
 
+### Turbo Frames cheat sheet
+In this section, we will explain the rules that apply to Turbo Frames.
+<strong>Even if the examples are written with links, those rules apply for both links and forms!</strong>
 
+<strong>Rule 1:</strong> When clicking on a link within a Turbo Frame, Turbo expects a frame of the same id on the target page. It will then replace the Frame's content on the source page with the Frame's content on the target page.
+
+35. let's add the Turbo Frame with the same id on the Quotes#new page:
+```
+<%# app/views/quotes/new.html.erb %>
+
+<main class="container">
+  <%= link_to sanitize("&larr; Back to quotes"), quotes_path %>
+
+  <div class="header">
+    <h1>New quote</h1>
+  </div>
+
+  <%= turbo_frame_tag "first_turbo_frame" do %>
+    <%= render "form", quote: @quote %>
+  <% end %>
+</main>
+```
 
 ## Chapter 5
 Real-time updates with Turbo Streams
