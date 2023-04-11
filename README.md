@@ -725,6 +725,14 @@ In this section, we will explain the rules that apply to Turbo Frames.
 </main>
 ```
 
+When clicking on a link within a Turbo Frame, if there is a frame with the same id on the target page, Turbo will replace the content of the Turbo Frame of the source page with the content of the Turbo Frame of the target page.
+
+<strong>Rule 2:</strong> When clicking on a link within a Turbo Frame, if there is no Turbo Frame with the same id on the target page, the frame disappears, and the error Response has no matching \<turbo-frame id="name_of_the_frame"> element is logged in the console.
+
+<strong>Rule 3:</strong> A link can target another frame than the one it is directly nested in thanks to the data-turbo-frame data attribute.
+
+
+
 ## Chapter 5
 Real-time updates with Turbo Streams
 In this chapter, we will learn how to broadcast Turbo Stream templates with Action Cable to make real-time updates on a web page.
