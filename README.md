@@ -938,6 +938,137 @@ The turbo_frame_tag helper automatically passes the given object to dom_id. Ther
 </main>
 ```
 
+44. Turbo expects a Turbo Frame of the same id on the Quotes#show page. To solve the problem, we will make the links to the Quote#show page target the "_top" frame to replace the whole page:
+```
+<%# app/views/quotes/_quote.html.erb %>
+
+<%= turbo_frame_tag quote do %>
+  <div class="quote">
+    <%= link_to quote.name,
+                quote_path(quote),
+                data: { turbo_frame: "_top" } %>
+    <div class="quote__actions">
+      <%= button_to "Delete",
+                    quote_path(quote),
+                    method: :delete,
+                    class: "btn btn--light" %>
+      <%= link_to "Edit",
+                  edit_quote_path(quote),
+                  class: "btn btn--light" %>
+    </div>
+  </div>
+<% end %>
+```
+
+Let's test it in the browser. Our first problem is solved. Our links to the Quotes#show page now work as expected!
+
+We could solve the second problem with the same method by making the form to delete the quote target the "_top" frame:
+```
+<%# app/views/quotes/_quote.html.erb %>
+
+<%= turbo_frame_tag quote do %>
+  <div class="quote">
+    <%= link_to quote.name,
+                quote_path(quote),
+                data: { turbo_frame: "_top" } %>
+    <div class="quote__actions">
+      <%= button_to "Delete",
+                    quote_path(quote),
+                    method: :delete,
+                    form: { data: { turbo_frame: "_top" } },
+                    class: "btn btn--light" %>
+      <%= link_to "Edit",
+                  edit_quote_path(quote),
+                  class: "btn btn--light" %>
+    </div>
+  </div>
+<% end %>
+```
+While this is a perfectly valid solution, it has an unintended side effect we might want to address. Imagine if we open the form for the second quote, and click on the "Delete" button for the third quote like in this example:
+
+Go ahead and test it in the browser. The third quote is removed as expected, but the response also closes the form for the second quote. This is because, as the form to delete the third quote targets the "_top" frame, the whole page is replaced!
+
+It would be nice if we could only remove the Turbo Frame containing the deleted quote and leave the rest of the page unchanged to preserve the state of the page. Well, Turbo and Rails once again have our back! Let's remove what we just did for the "Delete" button:
+
+```
+<%# app/views/quotes/_quote.html.erb %>
+
+<%= turbo_frame_tag quote do %>
+  <div class="quote">
+    <%= link_to quote.name,
+                quote_path(quote),
+                data: { turbo_frame: "_top" } %>
+    <div class="quote__actions">
+      <%= button_to "Delete",
+                    quote_path(quote),
+                    method: :delete,
+                    class: "btn btn--light" %>
+      <%= link_to "Edit",
+                  edit_quote_path(quote),
+                  class: "btn btn--light" %>
+    </div>
+  </div>
+<% end %>
+```
+
+45. In the controller, let's support both the HTML and the TURBO_STREAM formats thanks to the respond_to method:
+```
+# app/controllers/quotes_controller.rb
+
+def destroy
+  @quote.destroy
+
+  respond_to do |format|
+    format.html { redirect_to quotes_path, notice: "Quote was successfully destroyed." }
+    format.turbo_stream
+  end
+end
+```
+
+46. As with any other format, let's create the corresponding view:
+```
+<%# app/views/quotes/destroy.turbo_stream.erb %>
+
+<%= turbo_stream.remove "quote_#{@quote.id}" %>
+```
+
+Let's delete a quote and inspect the response body in the "Network" tab in the browser.
+
+Where does this HTML come from? In the TURBO_STREAM view we just created, the turbo_stream helper received the remove method with the "quote_#{@quote.id}" as an argument. As we can see, this helper converts this into a <turbo-stream> custom element with the action "remove" and the target "quote_908005780".
+
+When the browser receives this HTML, Turbo will know how to interpret it. It will perform the desired action on the Turbo Frame with the id specified by the target attribute. In our case, Turbo removes the Turbo Frame corresponding to the deleted quote leaving the rest of the page untouched. That's exactly what we wanted!
+
+Note: As of writing this chapter, the turbo_stream helper responds to the following methods, so that it can perform the following actions:
+```
+# Remove a Turbo Frame
+turbo_stream.remove
+
+# Insert a Turbo Frame at the beginning/end of a list
+turbo_stream.append
+turbo_stream.prepend
+
+# Insert a Turbo Frame before/after another Turbo Frame
+turbo_stream.before
+turbo_stream.after
+
+# Replace or update the content of a Turbo Frame
+turbo_stream.update
+turbo_stream.replace
+```
+
+With the combination of Turbo Frames and the new TURBO_STREAM format, we will be able to perform precise operations on pieces of our web pages without having to write a single line of JavaScript, therefore preserving the state of our web pages.
+
+One last thing before we move on to the next section, the turbo_stream helper can also be used with dom_id. We can refactor our view like this:
+```
+<%# app/views/quotes/destroy.turbo_stream.erb %>
+
+<%= turbo_stream.remove @quote %>
+```
+
+
+
+
+
 ## Chapter 5
 Real-time updates with Turbo Streams
 In this chapter, we will learn how to broadcast Turbo Stream templates with Action Cable to make real-time updates on a web page.
