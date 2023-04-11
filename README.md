@@ -577,6 +577,21 @@ Turbo.session.drive = false
 ## Reloading the page with data-turbo-track="reload"
 In most cases, Turbo Drive only replaces the \<body> of the HTML page and leaves the \<head> unchanged. I say in most cases because there are situations where we want Turbo Drive to notice changes on the \<head> of our web pages.
 
+Let's take the example of a deployment where we change the CSS of our application. Thanks to the asset pipeline, the path to our CSS bundle will change from /assets/application-oldfingerprint.css to /assets/application-newfingerprint.css. However, if the \<head> never changed, users that were on the website before the deployment and who remained on the website after the deployment would still be using the old CSS bundle as no request to download the new bundle would be sent. This could harm the user experience as users would use outdated CSS. We have the same problem with our JavaScript bundle.
+
+To solve this problem, on every new request, Turbo Drive compares the DOM elements with data-turbo-track="reload" in the \<head> of the current HTML page and the \<head> of the response. If there are differences, Turbo Drive will reload the whole page.
+
+Let's now make a silly temporary change to our CSS manifest to simulate a change in our CSS bundle and a deployment by, for example, importing the code for the .btn component twice:
+```
+// app/assets/stylesheets/application.sass.scss
+
+// Remove the double import after the experiment
+@import "components/btn";
+@import "components/btn";
+```
+
+Next time we click on a link, we should see a complete page reload. Let's test it and see that it works! Turbo Drive is a fantastic piece of software!
+
 
 
 ## Chapter 4
