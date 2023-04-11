@@ -1065,7 +1065,105 @@ One last thing before we move on to the next section, the turbo_stream helper ca
 <%= turbo_stream.remove @quote %>
 ```
 
+## Creating a new quote with Turbo Frames
+The last feature we need is the quote creation.
 
+As mentioned earlier, we need two frames of the same id on the Quotes#index view and the Quotes#new page. Those frames will have the id of dom_id(Quote.new), which is equivalent to the string "new_quote".
+
+47. On the Quotes#new page, let's wrap the new quote form in the Turbo Frame:
+```
+<%# app/views/quotes/new.html.erb %>
+
+<main class="container">
+  <%= link_to sanitize("&larr; Back to quotes"), quotes_path %>
+
+  <div class="header">
+    <h1>New quote</h1>
+  </div>
+
+  <%= turbo_frame_tag @quote do %>
+    <%= render "form", quote: @quote %>
+  <% end %>
+</main>
+```
+Here @quote is a new record, so the three following expressions are equivalent:
+```
+turbo_frame_tag "new_quote"
+turbo_frame_tag Quote.new
+turbo_frame_tag @quote
+```
+48. Now let's add an empty Turbo Frame of the same id to the Quotes#index page that will receive this new quote form:
+```
+<%# app/views/quotes/index.html.erb %>
+
+<main class="container">
+  <div class="header">
+    <h1>Quotes</h1>
+    <%= link_to "New quote",
+                new_quote_path,
+                class: "btn btn--primary",
+                data: { turbo_frame: dom_id(Quote.new) } %>
+  </div>
+
+  <%= turbo_frame_tag Quote.new %>
+  <%= render @quotes %>
+</main>
+```
+
+When submitting the form with valid attributes, the QuotesController#create action will render the Quotes#index page that contains an empty frame of id new_quote that will replace our form. However, Turbo does not know what to do with the newly created quote. Where should it be inserted on the page? Should it be appended to a list of quotes? Or maybe prepended? To do this, we will use a Turbo Stream view!
+
+49. Let's tell the QuotesController that it needs to support both the HTML and the TURBO_STREAM formats:
+```
+# app/controllers/quotes_controller.rb
+
+def create
+  @quote = Quote.new(quote_params)
+
+  if @quote.save
+    respond_to do |format|
+      format.html { redirect_to quotes_path, notice: "Quote was successfully created." }
+      format.turbo_stream
+    end
+  else
+    render :new, status: :unprocessable_entity
+  end
+end
+```
+
+50. Let's create the corresponding view:
+```
+<%# app/views/quotes/create.turbo_stream.erb %>
+
+<%= turbo_stream.prepend "quotes", partial: "quotes/quote", locals: { quote: @quote } %>
+<%= turbo_stream.update Quote.new, "" %>
+```
+
+In this view, we instruct Turbo to do two things:
+
+The first line tells Turbo to prepend to the Turbo Frame with id quotes the app/views/quotes/_quote.html.erb partial. As we can see, it's straightforward to pass a partial and locals to the turbo_stream helper.
+
+The second line tells Turbo to update the Turbo Frame with id new_quote with empty content.
+
+51. The last thing we need to do to make it work is adding a Turbo Frame with id "quotes" to wrap the list of quotes in the Quotes#index page.
+```
+<%# app/views/quotes/index.html.erb %>
+
+<div class="container">
+  <div class="header">
+    <h1>Quotes</h1>
+    <%= link_to "New quote",
+                new_quote_path,
+                class: "btn btn--primary",
+                data: { turbo_frame: dom_id(Quote.new) } %>
+  </div>
+
+  <%= turbo_frame_tag Quote.new %>
+
+  <%= turbo_frame_tag "quotes" do %>
+    <%= render @quotes %>
+  <% end %>
+</div>
+```
 
 
 
