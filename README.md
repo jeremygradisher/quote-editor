@@ -1233,10 +1233,11 @@ rails test test/system/quotes_test.rb:43
   <%= f.submit class: "btn btn--secondary" %>
 <% end %>
 ```
-
+Chapeter 4 complete!
 
 ## Chapter 5
-Real-time updates with Turbo Streams
+Real-time updates with Turbo Streams<br>
+https://www.hotrails.dev/turbo-rails/turbo-streams
 In this chapter, we will learn how to broadcast Turbo Stream templates with Action Cable to make real-time updates on a web page.
 
 ## Chapter 6
