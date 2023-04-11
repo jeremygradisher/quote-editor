@@ -731,6 +731,107 @@ When clicking on a link within a Turbo Frame, if there is a frame with the same 
 
 <strong>Rule 3:</strong> A link can target another frame than the one it is directly nested in thanks to the data-turbo-frame data attribute.
 
+36. On the Quotes#index page, we need to add the second Turbo Frame and the data-turbo-frame data attribute with the same id as this second Turbo Frame:
+```
+<%# app/views/quotes/index.html.erb %>
+
+<main class="container">
+  <%= turbo_frame_tag "first_turbo_frame" do %>
+    <div class="header">
+      <h1>Quotes</h1>
+      <%= link_to "New quote",
+                  new_quote_path,
+                  data: { turbo_frame: "second_frame" },
+                  class: "btn btn--primary" %>
+    </div>
+  <% end %>
+
+  <%= turbo_frame_tag "second_frame" do %>
+    <%= render @quotes %>
+  <% end %>
+</main>
+
+```
+
+37. On the Quote#new page, let's wrap our form in a Turbo Frame of the same name as the second frame:
+```
+<%# app/views/quotes/new.html.erb %>
+
+<main class="container">
+  <%= link_to sanitize("&larr; Back to quotes"), quotes_path %>
+
+  <div class="header">
+    <h1>New quote</h1>
+  </div>
+
+  <%= turbo_frame_tag "second_frame" do %>
+    <%= render "form", quote: @quote %>
+  <% end %>
+</main>
+```
+
+Now let's experiment again. Let's visit the Quotes#index page, refresh it, and click on the "New quote" button. We should see our quotes list replaced by the new quote form. This is because our link now targets the second frame thanks to the data-turbo-frame attribute.
+
+A link can target a Turbo Frame it is not directly nested in, thanks to the data-turbo-frame data attribute. In that case, the Turbo Frame with the same id as the data-turbo-frame data attribute on the source page will be replaced by the Turbo Frame of the same id as the data-turbo-frame data attribute on the target page.
+
+### Note:
+There is a special frame called _top that represents the whole page. It's not really a Turbo Frame, but it behaves almost like one, so we will make this approximation for our mental model.
+
+For example, if we wanted our "New quote" button to replace the whole page, we could use data-turbo-frame="_top". Of course, every page has the "_top" frame by default, so our Quotes#new page also has it.
+
+38. To make our markup match our sketches on the Quotes#index page, let's tell our "New quote" link to target the "_top" frame:
+```
+<%# app/views/quotes/index.html.erb %>
+
+<main class="container">
+  <%= turbo_frame_tag "first_turbo_frame" do %>
+    <div class="header">
+      <h1>Quotes</h1>
+      <%= link_to "New quote",
+                  new_quote_path,
+                  data: { turbo_frame: "_top" },
+                  class: "btn btn--primary" %>
+    </div>
+  <% end %>
+
+  <%= render @quotes %>
+</main>
+```
+39. We can add whatever we want on the Quotes#new page. It does not matter as the browser will replace the whole page. For our example, we will simply go back to our initial state:
+```
+<%# app/views/quotes/new.html.erb %>
+
+<main class="container">
+  <%= link_to sanitize("&larr; Back to quotes"), quotes_path %>
+
+  <div class="header">
+    <h1>New quote</h1>
+  </div>
+
+  <%= render "form", quote: @quote %>
+</main>
+
+```
+Now let's experiment again. Let's navigate to the Quotes#index page and click on the "New quote" button. We can see that the whole page is replaced by the content of the Quotes#new page.
+
+<b>When using the "_top" keyword, the URL of the page changes to the URL of the target page, which is another difference from when using a regular Turbo Frame.</b>
+
+As we can notice, Turbo Frames are a significant addition to our toolbox as Ruby on Rails developers. They enable us to slice up pages in independent contexts without writing any custom JavaScript.
+
+40. Let's practice and make our system tests pass! But just before, let's reset our Quotes#index page markup to its initial state:
+```
+<%# app/views/quotes/index.html.erb %>
+
+<main class="container">
+  <div class="header">
+    <h1>Quotes</h1>
+    <%= link_to "New quote", new_quote_path, class: "btn btn--primary" %>
+  </div>
+
+  <%= render @quotes %>
+</main>
+```
+
 
 
 ## Chapter 5
