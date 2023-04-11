@@ -556,6 +556,27 @@ On the Quotes#index page, let's disable Turbo Drive on the "New quote" link:
   <%= render @quotes %>
 </main>
 ```
+You can see if turbo:false that the page refreshes when clicking "New Quote"
+
+We demonstrated what Turbo Drive does for us in brand new Ruby on Rails 7 applications.
+
+-It converts all link clicks and form submissions into AJAX requests to speed up our application<br>
+-It prevents the browser from making too many requests to load CSS and JavaScript files<br>
+The best part is that we didn't have to write any custom code. We get this benefit for free!
+
+## Disable Turbo Drive
+Note: It is also possible to disable Turbo Drive for the whole application, even though I don't recommend doing it as you will lose the speed benefits Turbo Drive provides.
+
+To disable Turbo Drive on the whole application, we have to add two lines of config to our JavaScript code. You can, for example, do it directly in the manifest file:
+```
+// app/javascript/application.js
+
+import { Turbo } from "@hotwired/turbo-rails"
+Turbo.session.drive = false
+```
+## Reloading the page with data-turbo-track="reload"
+In most cases, Turbo Drive only replaces the \<body> of the HTML page and leaves the \<head> unchanged. I say in most cases because there are situations where we want Turbo Drive to notice changes on the \<head> of our web pages.
+
 
 
 ## Chapter 4
