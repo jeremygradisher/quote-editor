@@ -1,3 +1,5 @@
 class Quote < ApplicationRecord
     validates :name, presence: true
-end
+  
+    scope :ordered, -> { order(id: :desc) }
+  end

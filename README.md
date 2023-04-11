@@ -1165,6 +1165,74 @@ The second line tells Turbo to update the Turbo Frame with id new_quote with emp
 </div>
 ```
 
+### Ordering our quotes
+52. There is one last detail we should take care of. We decided to prepend the created quote to the list of quotes, but when we refresh the page, the order of the quotes in the list changes. To always keep the quotes ordered the newest first, let's add a scope to our Quote model
+```
+# app/models/quote.rb
+
+class Quote < ApplicationRecord
+  validates :name, presence: true
+
+  scope :ordered, -> { order(id: :desc) }
+end
+```
+
+53. Let's then use this scope in our controller in the #index action:
+
+# app/controllers/quotes_controller.rb
+```
+def index
+  @quotes = Quote.ordered
+end
+```
+
+Now the order of quotes is consistent even when we refresh the page. That's a small detail, but it might be important for our users to understand what happens.
+
+54. This breaks our system test as the ordering isn't the same anymore so let's update our system test to make them pass again:
+```
+# test/system/quotes_test.rb
+
+setup do
+  # We need to order quote as well in the system tests
+  @quote = Quote.ordered.first
+end
+```
+
+Run our system tests and see that they are passing:
+```
+bin/rails test:system
+```
+
+Expecting to see all tests passing. I actually have one still failing:
+```
+F
+
+Failure:
+QuotesTest#test_Destroying_a_quote [/Users/jg-work-computer/quote-editor/test/system/quotes_test.rb:48]:
+expected not to find text "First quote" in "Quotes\nNew quote\nThird quote\nDelete\nEdit\nFirst quote\nDelete\nEdit"
+
+
+rails test test/system/quotes_test.rb:43
+
+```
+
+### Adding a cancel button
+55. Now that everything works as expected, let's add the last improvement to our page. We want our users to be able to close new/edit quote forms without submitting them. To do this, we will add a "Cancel" link that links to the Quotes#index page on the quotes/_form.html.erb partial:
+```
+<%# app/views/quotes/_form.html.erb %>
+
+<%= simple_form_for quote, html: { class: "quote form" } do |f| %>
+  <% if quote.errors.any? %>
+    <div class="error-message">
+      <%= quote.errors.full_messages.to_sentence.capitalize %>
+    </div>
+  <% end %>
+
+  <%= f.input :name, input_html: { autofocus: true } %>
+  <%= link_to "Cancel", quotes_path, class: "btn btn--light" %>
+  <%= f.submit class: "btn btn--secondary" %>
+<% end %>
+```
 
 
 ## Chapter 5
