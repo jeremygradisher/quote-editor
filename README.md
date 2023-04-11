@@ -506,7 +506,7 @@ https://www.hotrails.dev/turbo-rails/css-ruby-on-rails<br>
 Organizing CSS files in Ruby on Rails
 In this chapter, we will write some CSS using the BEM methodology to create a nice design system for our application.
 
-Added: 
+32. Added a bunch of sass/css: <br>
 The mixins folder - app/assets/stylesheets/mixins/_media.scss<br>
 The configuration folder - app/assets/stylesheets/config/_variables.scss<br>
 Global styles - app/assets/stylesheets/config/_reset.scss<br>
@@ -525,6 +525,38 @@ Chapter 2 complete!
 ## Chapter 3
 Turbo Drive - https://www.hotrails.dev/turbo-rails/turbo-drive<br>
 In this chapter, we will explain what Turbo Drive is and how it speeds up our Ruby on Rails applications by converting all link clicks and form submissions into AJAX requests.
+
+Understanding what Turbo Drive is
+Turbo Drive is the first part of Turbo, which gets installed by default in Rails 7 applications, as we can see in our Gemfile and our JavaScript manifest file application.js:
+
+By default, Turbo Drive speeds up our Ruby on Rails applications by converting all link clicks and form submissions into AJAX requests. That means that our CRUD application from the first chapter is already a single-page application, and we had no custom code to write.
+
+With Turbo Drive, our Ruby on Rails applications will be fast by default because the HTML page we first visit won't be completely refreshed. When Turbo Drive intercepts a link click or a form submission, the response to the AJAX request will only serve to replace the <body> of the HTML page. In most cases, the <head> of the current HTML page won't change, resulting in a considerable performance improvement: the requests to download the fonts, CSS, and JavaScript files will only be made once when we first access the website.
+
+Turbo Drive works by intercepting "click" events on links and "submit" events on forms.
+
+## Disabling Turbo Drive
+We may want to disable Turbo Drive for certain link clicks or form submissions in some cases. For example, this can be the case when working with gems that don't support Turbo Drive yet.
+
+At the time writing this chapter, the Devise gem does not support Turbo Drive. A good workaround is to disable Turbo Drive on Devise forms such as the sign-in and sign-up forms. We will come back to this problem in a future chapter but for now, let's learn how to disable Turbo Drive on specific links and forms.
+
+To disable Turbo Drive on a link or a form, we need to add the data-turbo="false" data attribute on it.
+
+On the Quotes#index page, let's disable Turbo Drive on the "New quote" link:
+```
+<main class="container">
+  <div class="header">
+    <h1>Quotes</h1>
+    <%= link_to "New quote",
+                new_quote_path,
+                class: "btn btn--primary",
+                data: { turbo: false } %>
+  </div>
+
+  <%= render @quotes %>
+</main>
+```
+
 
 ## Chapter 4
 Turbo Frames and Turbo Stream templates
