@@ -613,9 +613,96 @@ That's it, our progress bar is styled and matches our design system! We can now 
 Chapter 3 complete!
 
 ## Chapter 4
-Turbo Frames and Turbo Stream templates - 
+Turbo Frames and Turbo Stream templates<br>
 https://www.hotrails.dev/turbo-rails/turbo-frames-and-turbo-streams<br>
 In this chapter, we will learn how to slice our page into independent parts thanks to Turbo Frames and the Turbo Stream format. After reading this chapter, all the CRUD actions on quotes will happen on the quotes index page.
+
+### Turbo Frames and Turbo Stream templates
+In this chapter, we will learn how to slice our page into independent parts thanks to Turbo Frames and the Turbo Stream format. After reading this chapter, all the CRUD actions on quotes will happen on the quotes index page.
+
+Currently tests are still passing:
+```
+bin/rails test:system
+```
+
+34. Let's now update our Capybara system tests to match the desired behavior of all CRUD actions happening on the quotes index page.
+```
+# test/system/quotes_test.rb
+
+require "application_system_test_case"
+
+class QuotesTest < ApplicationSystemTestCase
+  setup do
+    @quote = quotes(:first)
+  end
+
+  test "Showing a quote" do
+    visit quotes_path
+    click_link @quote.name
+
+    assert_selector "h1", text: @quote.name
+  end
+
+  test "Creating a new quote" do
+    visit quotes_path
+    assert_selector "h1", text: "Quotes"
+
+    click_on "New quote"
+    fill_in "Name", with: "Capybara quote"
+
+    assert_selector "h1", text: "Quotes"
+    click_on "Create quote"
+
+    assert_selector "h1", text: "Quotes"
+    assert_text "Capybara quote"
+  end
+
+  test "Updating a quote" do
+    visit quotes_path
+    assert_selector "h1", text: "Quotes"
+
+    click_on "Edit", match: :first
+    fill_in "Name", with: "Updated quote"
+
+    assert_selector "h1", text: "Quotes"
+    click_on "Update quote"
+
+    assert_selector "h1", text: "Quotes"
+    assert_text "Updated quote"
+  end
+
+  test "Destroying a quote" do
+    visit quotes_path
+    assert_text @quote.name
+
+    click_on "Delete", match: :first
+    assert_no_text @quote.name
+  end
+end
+```
+
+If we run the tests now, the two tests corresponding to the creation and the edition of quotes will fail. Our goal is to make them green again with Turbo Frames and Turbo Streams. Ready to learn how they work? Let's dive in!
+
+### What are Turbo Frames?
+Turbo Frames are independent pieces of a web page that can be appended, prepended, replaced, or removed without a complete page refresh and writing a single line of JavaScript!
+
+35. Let's create our first Turbo Frame. To create Turbo Frames, we use the turbo_frame_tag helper. Let's wrap the header on the Quotes#index page in a Turbo Frame with an id of "first_turbo_frame":
+```
+<%# app/views/quotes/index.html.erb %>
+
+<main class="container">
+  <%= turbo_frame_tag "first_turbo_frame" do %>
+    <div class="header">
+      <h1>Quotes</h1>
+      <%= link_to "New quote", new_quote_path, class: "btn btn--primary" %>
+    </div>
+  <% end %>
+
+  <%= render @quotes %>
+</main>
+```
+
+
 
 ## Chapter 5
 Real-time updates with Turbo Streams
