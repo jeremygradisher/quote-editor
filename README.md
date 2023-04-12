@@ -48,9 +48,6 @@ In this chapter, we will learn how to broadcast Turbo Stream templates with Acti
 
 Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-5
 
-WIP - Left off on this header:<br>
-Adding a home page to our application
-
 ## Chapter 6
 Turbo Streams and security<br>
 Tutorial: https://www.hotrails.dev/turbo-rails/turbo-streams-security
@@ -66,6 +63,9 @@ Note: When logging in with users, you might encounter a redirection bug when sub
 We won't do it in our Tutorial, but if we pushed our app to production, we would have to do it before real users try our app.
 
 ---
+
+WIP - Left off on this header:<br>
+Adding a home page to our application
 
 ## Chapter 7
 Flash messages with Hotwire
