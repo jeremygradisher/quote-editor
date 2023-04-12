@@ -3,32 +3,44 @@ https://www.hotrails.dev/turbo-rails
 
 Learn how to leverage the power of the turbo-rails library now included by default in Rails 7 to write reactive single-page applications without having to write a single line of custom JavaScript.
 
+Wiki: https://github.com/jeremygradisher/quote-editor/wiki
+
 ## Chapter 0
-https://www.hotrails.dev/turbo-rails/turbo-rails-tutorial-introduction
+Tutorial: https://www.hotrails.dev/turbo-rails/turbo-rails-tutorial-introduction
+
+Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-0
 
 Turbo Rails tutorial introduction - 
 In this chapter, we will explain what we are going to learn, have a look at the finished product and kickstart our brand new Rails 7 application!
 
 ## Chapter 1
-https://www.hotrails.dev/turbo-rails/crud-controller-ruby-on-rails
+Tutorial: https://www.hotrails.dev/turbo-rails/crud-controller-ruby-on-rails
+
+Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-1
+
 A simple CRUD controller with Rails
 In this first chapter, we will start our application by creating our quote model and its associated controller following the Ruby on Rails conventions.
 
 ## Chapter 2
-https://www.hotrails.dev/turbo-rails/css-ruby-on-rails<br>
+Tutorial: https://www.hotrails.dev/turbo-rails/css-ruby-on-rails
+
+Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-2
+
 Organizing CSS files in Ruby on Rails
 In this chapter, we will write some CSS using the BEM methodology to create a nice design system for our application.
 
 ## Chapter 3
-Turbo Drive - https://www.hotrails.dev/turbo-rails/turbo-drive<br>
+Tutorial: Turbo Drive - https://www.hotrails.dev/turbo-rails/turbo-drive<br>
 In this chapter, we will explain what Turbo Drive is and how it speeds up our Ruby on Rails applications by converting all link clicks and form submissions into AJAX requests.
+
+Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-3
 
 ## Chapter 4
 Turbo Frames and Turbo Stream templates<br>
 https://www.hotrails.dev/turbo-rails/turbo-frames-and-turbo-streams<br>
 In this chapter, we will learn how to slice our page into independent parts thanks to Turbo Frames and the Turbo Stream format. After reading this chapter, all the CRUD actions on quotes will happen on the quotes index page.
 
-Chapeter 4 complete!
+Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-4
 
 ## Chapter 5
 Real-time updates with Turbo Streams<br>
