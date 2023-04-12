@@ -13,20 +13,20 @@ Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-0
 Turbo Rails tutorial introduction - 
 In this chapter, we will explain what we are going to learn, have a look at the finished product and kickstart our brand new Rails 7 application!
 
-## Chapter 1
+## Chapter 1 - A simple CRUD controller with Rails
 Tutorial: https://www.hotrails.dev/turbo-rails/crud-controller-ruby-on-rails
 
 Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-1
 
-## A simple CRUD controller with Rails
+A simple CRUD controller with Rails
 In this first chapter, we will start our application by creating our quote model and its associated controller following the Ruby on Rails conventions.
 
-## Chapter 2
+## Chapter 2 - Organizing CSS files in Ruby on Rails
 Tutorial: https://www.hotrails.dev/turbo-rails/css-ruby-on-rails
 
 Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-2
 
-## Organizing CSS files in Ruby on Rails
+Organizing CSS files in Ruby on Rails
 In this chapter, we will write some CSS using the BEM methodology to create a nice design system for our application.
 
 ## Chapter 3 - Turbo Drive
