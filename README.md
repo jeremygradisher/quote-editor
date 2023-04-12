@@ -43,8 +43,10 @@ Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-4
 
 ## Chapter 5
 Real-time updates with Turbo Streams<br>
-https://www.hotrails.dev/turbo-rails/turbo-streams
+Tutorial: https://www.hotrails.dev/turbo-rails/turbo-streams
 In this chapter, we will learn how to broadcast Turbo Stream templates with Action Cable to make real-time updates on a web page.
+
+Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-5
 
 ## Chapter 6
 Turbo Streams and security
