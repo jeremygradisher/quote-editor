@@ -49,8 +49,11 @@ In this chapter, we will learn how to broadcast Turbo Stream templates with Acti
 Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-5
 
 ## Chapter 6
-Turbo Streams and security
+Turbo Streams and security<br>
+Tutorial: https://www.hotrails.dev/turbo-rails/turbo-streams-security
 In this chapter, we will learn how to use Turbo Streams securely and avoid sending broadcastings to the wrong users.
+
+Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-6
 
 ## Chapter 7
 Flash messages with Hotwire
