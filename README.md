@@ -48,6 +48,9 @@ In this chapter, we will learn how to broadcast Turbo Stream templates with Acti
 
 Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-5
 
+WIP - Left off on this header:<br>
+Adding a home page to our application
+
 ## Chapter 6
 Turbo Streams and security<br>
 Tutorial: https://www.hotrails.dev/turbo-rails/turbo-streams-security
