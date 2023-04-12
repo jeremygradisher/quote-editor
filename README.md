@@ -58,7 +58,7 @@ Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-6
 I need to pic this up before pushing to production:
 ---
 
-Note: When logging in with users, you might encounter a redirection bug when submitting an invalid form. This is because the Devise gem does not support Turbo yet (version 4.8.1). The easiest way to prevent this bug is to disable Turbo on Devise forms by setting the data-turbo attribute to false on Devise forms, as we learned in the [Turbo Drive chapter](https://www.hotrails.dev/turbo-rails/turbo-drive).
+Note: When logging in with users, you might encounter a redirection bug when submitting an invalid form. This is because the **Devise gem does not support Turbo yet (version 4.8.1).** The easiest way to prevent this bug is to **disable Turbo on Devise forms by setting the data-turbo attribute to false on Devise forms**, as we learned in the [Turbo Drive chapter](https://www.hotrails.dev/turbo-rails/turbo-drive).
 
 We won't do it in our Tutorial, but if we pushed our app to production, we would have to do it before real users try our app.
 
