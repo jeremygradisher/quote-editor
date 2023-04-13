@@ -55,7 +55,7 @@ In this chapter, we will learn how to use Turbo Streams securely and avoid sendi
 
 Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-6
 
-I need to pic this up before pushing to production:
+I need to pick this up before pushing to production:
 ---
 
 Note: When logging in with users, you might encounter a redirection bug when submitting an invalid form. This is because the **Devise gem does not support Turbo yet (version 4.8.1).** The easiest way to prevent this bug is to **disable Turbo on Devise forms by setting the data-turbo attribute to false on Devise forms**, as we learned in the [Turbo Drive chapter](https://www.hotrails.dev/turbo-rails/turbo-drive).
