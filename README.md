@@ -64,12 +64,12 @@ We won't do it in our Tutorial, but if we pushed our app to production, we would
 
 ---
 
-WIP - Left off on this header:<br>
-Security and Turbo Streams
-
 ## Chapter 7
-Flash messages with Hotwire
+Flash messages with Hotwire<br>
+Tutorial: https://www.hotrails.dev/turbo-rails/flash-messages-hotwire
 In this chapter, we will learn how to add flash messages with Turbo and how to make a nice animation with Stimulus.
+
+Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-7
 
 ## Chapter 8
 Two ways to handle empty states with Hotwire
