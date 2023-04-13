@@ -20,5 +20,7 @@ class Quote < ApplicationRecord
 
   # there is some syntactic sugar to avoid writing those three callbacks all the time. 
   # Let's replace them with an equivalent and shorter version in our Quote model:
-  broadcasts_to ->(quote) { "quotes" }, inserts_by: :prepend
+  #broadcasts_to ->(quote) { "quotes" }, inserts_by: :prepend
+  # We want to have the same signed-stream-name for the accountant and the manager and a different one for the eavesdropper:
+  broadcasts_to ->(quote) { [quote.company, "quotes"] }, inserts_by: :prepend
 end

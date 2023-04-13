@@ -65,7 +65,7 @@ We won't do it in our Tutorial, but if we pushed our app to production, we would
 ---
 
 WIP - Left off on this header:<br>
-Adding a home page to our application
+Security and Turbo Streams
 
 ## Chapter 7
 Flash messages with Hotwire
