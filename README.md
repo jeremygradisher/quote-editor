@@ -14,6 +14,19 @@ bin/dev
 
 We can now go to http://localhost:3000, and we should see the Rails boot screen.
 
+The bin/dev script installs foreman locally and runs the application based on the Procfile.dev file. When running the bin/dev command, we are running three commands at once:
+```
+# Procfile.dev
+
+web: bin/rails server -p 3000
+js: yarn build --watch
+css: yarn build:css --watch
+```
+
+We already know the first command bin/rails server -p 3000 to launch the Rails server. The two other commands yarn build --watch and yarn build:css --watch are defined in the scripts section of the Package.json. They are in charge of precompiling our CSS and JavaScript code before handing them to the asset pipeline. The --watch option is here to ensure the CSS and JavaScript code is compiled every time we save a CSS/Sass or JavaScript file.
+
+Both the scripts live in the /bin folder of your Rails app if you want to have a look at them.
+
 ---
 
 ## Chapter 0 - Turbo Rails tutorial introduction
