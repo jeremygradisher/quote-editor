@@ -5,6 +5,17 @@ Learn how to leverage the power of the turbo-rails library now included by defau
 
 Wiki: https://github.com/jeremygradisher/quote-editor/wiki
 
+---
+
+We can now run the rails server, and the scripts that precompile the CSS and the JavaScript code with the bin/dev command:
+```
+bin/dev
+```
+
+We can now go to http://localhost:3000, and we should see the Rails boot screen.
+
+---
+
 ## Chapter 0 - Turbo Rails tutorial introduction
 Tutorial: https://www.hotrails.dev/turbo-rails/turbo-rails-tutorial-introduction
 
