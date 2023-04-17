@@ -1,4 +1,5 @@
 <%#= turbo_stream.remove "quote_#{@quote.id}" %>
 
 <%= turbo_stream.remove @quote %>
-<%= turbo_stream.prepend "flash", partial: "layouts/flash" %>
+<%#= turbo_stream.prepend "flash", partial: "layouts/flash" %>
+<%= render_turbo_stream_flash_messages %>
