@@ -1,6 +1,8 @@
 # Turbo Rails Tutorial
 https://www.hotrails.dev/turbo-rails
 
+Their completed example: https://www.hotrails.dev/quotes
+
 Learn how to leverage the power of the turbo-rails library now included by default in Rails 7 to write reactive single-page applications without having to write a single line of custom JavaScript.
 
 Wiki: https://github.com/jeremygradisher/quote-editor/wiki
