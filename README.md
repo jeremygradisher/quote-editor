@@ -90,14 +90,17 @@ We won't do it in our Tutorial, but if we pushed our app to production, we would
 
 ## Chapter 7
 Flash messages with Hotwire<br>
-Tutorial: https://www.hotrails.dev/turbo-rails/flash-messages-hotwire
+Tutorial: https://www.hotrails.dev/turbo-rails/flash-messages-hotwire<br>
 In this chapter, we will learn how to add flash messages with Turbo and how to make a nice animation with Stimulus.
 
 Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-7
 
 ## Chapter 8
-Two ways to handle empty states with Hotwire
+Two ways to handle empty states with Hotwire<br>
+Tutorial: https://www.hotrails.dev/turbo-rails/empty-states<br>
 In this chapter, we will learn two ways to handle empty states with Turbo. The first one uses Turbo Frames and Turbo Streams, and the second uses the only-child CSS pseudo-class.
+
+Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-8
 
 ## Chapter 9
 Another CRUD controller with Turbo Rails
