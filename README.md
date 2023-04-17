@@ -105,8 +105,11 @@ In this chapter, we will learn two ways to handle empty states with Turbo. The f
 Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-8
 
 ## Chapter 9
-Another CRUD controller with Turbo Rails
+Another CRUD controller with Turbo Rails<br>
+Tutorial: https://www.hotrails.dev/turbo-rails/turbo-rails-crud<br>
 In this chapter, we will build the CRUD controller for the dates in our quotes. It is the perfect opportunity to practice what we have learned since the beginning of the tutorial!
+
+Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-9
 
 ## Chapter 10
 Nested Turbo Frames
