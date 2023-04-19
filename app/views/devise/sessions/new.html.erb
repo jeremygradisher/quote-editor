@@ -1,4 +1,4 @@
-<main class="container fp-center fp-padding">
+<main class="container fp-center fp-padding fp-login">
 <h2>Log in</h2>
 
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -14,7 +14,8 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
+    <%#= f.button :submit, "Log in"  %>
+    <%= f.button :submit, "Log in", class: "btn btn--dark" %>
   </div>
 <% end %>
 
