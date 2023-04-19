@@ -119,5 +119,8 @@ In this chapter, we will build our last CRUD controller for line items. As line 
 Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-10
 
 ## Chapter 11
-Adding a quote total with Turbo Frames
+Adding a quote total with Turbo Frames<br>
+Tutorial: https://www.hotrails.dev/turbo-rails/quote-totals-turbo-frames<br>
 In this chapter, we will add a sticky bar containing the total of the quote. This total will be updated every time we create, update, or delete a line item.
+
+Wiki: https://github.com/jeremygradisher/quote-editor/wiki/Chapter-11
