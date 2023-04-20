@@ -9,6 +9,17 @@ Wiki: https://github.com/jeremygradisher/quote-editor/wiki
 
 ---
 
+Running on Heroku: https://affyex-quote-editor.herokuapp.com/
+
+User accounts for testing (password is password):<br>
+accountant: accountant@kpmg.com<br>
+manager: manager@kpmg.com<br>
+eavesdropper: eavesdropper@pwc.com
+
+** You only see the Quotes and the Line Items from people within your company. **
+
+---
+
 We can now run the rails server, and the scripts that precompile the CSS and the JavaScript code with the bin/dev command:
 ```
 bin/dev

@@ -22,3 +22,8 @@ cto:
   company: affy
   email: cbeery@affygility.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+ceo:
+  company: affy
+  email: dcalhoun@affygility.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
