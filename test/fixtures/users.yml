@@ -12,3 +12,13 @@ eavesdropper:
   company: pwc
   email: eavesdropper@pwc.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+developer:
+  company: affy
+  email: gradisher@affygility.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+cto:
+  company: affy
+  email: cbeery@affygility.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
